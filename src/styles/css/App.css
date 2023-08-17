@@ -1,0 +1,122 @@
+button {
+    font-family: Roboto;
+    font-size: 24px;
+    background: #303134B2;
+    outline: solid 1px #2c2c2c;
+    color: yellow;
+    border: none;
+}
+button:hover {
+    outline-color: #8c8383;
+}
+
+.main {
+    background-color: rgba(156, 156, 161, 0.7);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto;
+}
+.container {
+    width: 440px;
+    padding: 10px;
+    background: #487488;
+}
+
+.display {
+    background: #501d1d;
+    min-height: 80px;
+    margin-bottom: 5px;
+}
+
+.display__output-data {
+    min-height: 50px
+}
+
+.display__input-data {
+    background: #501d1d;
+    width: 100%;
+    min-height: 30px
+}
+
+
+.buttons {
+    height: 440px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 2px 2px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "clear divide multiply subtract"
+    "seven eight nine add"
+    "four five six add"
+    "one two three equals"
+    "zero zero decimal equals";
+}
+
+.zero { grid-area: zero; }
+
+.one { grid-area: one; }
+
+.clear {
+    grid-area: clear;
+    background-color: #e81212;
+}
+
+.divide {
+    grid-area: divide;
+    background-color: rgba(71, 75, 77, 0.7);
+}
+
+.multiply {
+    background-color: rgba(71, 75, 77, 0.7);
+    grid-area: multiply;
+}
+
+.subtract {
+    background-color: rgba(71, 75, 77, 0.7);
+    grid-area: subtract;
+}
+
+.add {
+    background-color: rgba(71, 75, 77, 0.7);
+    grid-area: add;
+}
+
+.decimal {
+    grid-area: decimal;
+}
+
+.equals {
+    background-color: #014201;
+    grid-area: equals;
+}
+
+.two { grid-area: two; }
+
+.three { grid-area: three; }
+
+.four { grid-area: four; }
+
+.five { grid-area: five; }
+
+.six { grid-area: six; }
+
+.seven { grid-area: seven; }
+
+.eight { grid-area: eight; }
+
+.nine { grid-area: nine; }
+
+@media (max-width: 479px) {
+    .container {
+        width: 280px;
+        padding: 15px;
+    }
+    .buttons {
+        height: 280px;
+    }
+}
+
