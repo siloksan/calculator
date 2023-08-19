@@ -12,7 +12,7 @@ button:hover {
 
 .main {
     background-color: rgba(156, 156, 161, 0.7);
-    height: 100vh;
+    /*height: 100vh;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,13 +31,24 @@ button:hover {
 }
 
 .display__output-data {
-    min-height: 50px
+    font-size: 40px;
+    color: white;
+    min-height: 50px;
+    text-align: end;
+    vertical-align: middle;
+    padding: 2px;
+    font-family: digital;
 }
 
 .display__input-data {
+    font-family: digital;
+    color: yellow;
+    font-size: 30px;
     background: #501d1d;
     width: 100%;
-    min-height: 30px
+    text-align: end;
+    vertical-align: middle;
+    padding: 3px;
 }
 
 
