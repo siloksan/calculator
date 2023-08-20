@@ -3,15 +3,16 @@ import {createStore} from 'redux'
 const DISPLAY_INPUT = 'DISPLAY_INPUT'
 const OPERATION = 'OPERATION'
 const CURRENT_NUMBER = 'CURRENT_NUMBER'
+const PREV_OPERATOR = 'PREV_OPERATOR'
+const RESET = 'RESET'
 
 const initialState = {
 	displayInput: '',
+	prevSymbol: '',
 	displayOutput: 0,
 	currentNumber: 0,
-	// numberTwo: '',
-	// prevAction: '',
+	prevOperator: '',
 	result: 0,
-	// lastResult: ''
 }
 
 export const changeInput = (character) => {
@@ -35,13 +36,26 @@ export const calculate = (value) => {
 	}
 }
 
+export const operator = (symbol) => {
+	return {
+		type: PREV_OPERATOR,
+		symbol
+	}
+}
+
+export const reset = () => {
+	return {
+		type: RESET
+	}
+}
 
 const calculateReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case DISPLAY_INPUT:
 			return {
 				...state,
-				displayInput: state.displayInput + action.character,
+				displayInput: action.character,
+				prevSymbol: action.character.slice(-1)
 			};
 		case CURRENT_NUMBER:
 			return {
@@ -55,6 +69,15 @@ const calculateReducer = (state = initialState, action) => {
 				result: action.value,
 				displayOutput: action.value,
 				currentNumber: 0
+			};
+		case PREV_OPERATOR:
+			return {
+				...state,
+				prevOperator: action.symbol
+			};
+		case RESET:
+			return {
+				...initialState
 			};
 		default:
 			return state

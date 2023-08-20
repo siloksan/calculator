@@ -1,7 +1,7 @@
 import React from "react";
 import './styles/css/App.css';
 import {connect, Provider} from "react-redux";
-import store, { calculate, changeInput, newNumber } from "./redux";
+import store, {calculate, changeInput, newNumber, operator, reset} from "./redux";
 import Buttons from "./components/Buttons";
 
 const mathematicalOperators = {
@@ -13,12 +13,16 @@ const mathematicalOperators = {
 
 const App = ({
 	             displayInput,
+	             prevSymbol,
 	             displayOutput,
 	             currentNumber,
 	             result,
+	             prevOperator,
 	             updateCurrentNumber,
 	             calculateTheValue,
-	             renderNewCharacterIntoInput
+	             renderNewCharacterIntoInput,
+	             writeDownTheOperator,
+	             resetState
              }) => {
 
 	console.log(' currentNumber: ' + currentNumber + '(type: ' + typeof currentNumber + ')');
@@ -26,21 +30,30 @@ const App = ({
 
 	const handleClick = (ev) => {
 		const value = ev.target.innerHTML
-		renderNewCharacterIntoInput(value)
 		if (value.match(/\d/)) {
+			renderNewCharacterIntoInput(displayInput + value)
 			updateCurrentNumber(Number(currentNumber + value))
-		} else if (value.match(/\+/)) {
-			const sum = result + currentNumber
-			calculateTheValue(sum)
-		} else if (value.match(/-/)) {
-			const sum = result - currentNumber
-			calculateTheValue(sum)
-		} else if (value.match(/\*/)) {
-			const sum = result * currentNumber
-			calculateTheValue(sum)
-		} else if (value.match(/\//)) {
-			const sum = result / currentNumber
-			calculateTheValue(sum)
+		}
+		//обрабатываем нажатие на кнопку математического оператора
+		else if (value.match(/[+/\-*]/)) {
+			// debugger
+			//если предыдущий символ тоже мат. опер. (кроме "-"), удаляем его и заменяем на вновь введённый
+			if (prevSymbol.match(/[+/*-]/)) {
+				debugger
+				const newDisplayInput = displayInput.slice(0, -1) + value
+				renderNewCharacterIntoInput(newDisplayInput)
+				return
+			}
+			if (prevOperator !== '') {
+				const newResult = mathematicalOperators[prevOperator](result, currentNumber)
+				calculateTheValue(newResult)
+			} else {
+				calculateTheValue(currentNumber)
+			}
+			renderNewCharacterIntoInput(displayInput + value)
+			writeDownTheOperator(value)
+		} else if (value === 'AC') {
+			resetState()
 		}
 	}
 
@@ -60,9 +73,11 @@ const App = ({
 const mapStateToProps = (state) => {
 	return {
 		displayInput: state.displayInput,
+		prevSymbol: state.prevSymbol,
 		displayOutput: state.displayOutput,
 		currentNumber: state.currentNumber,
-		result: state.result
+		result: state.result,
+		prevOperator: state.prevOperator
 	}
 }
 
@@ -76,6 +91,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		calculateTheValue: (value) => {
 			dispatch(calculate(value))
+		},
+		writeDownTheOperator: (symbol) => {
+			dispatch(operator(symbol))
+		},
+		resetState: () => {
+			dispatch(reset())
 		}
 	}
 }
