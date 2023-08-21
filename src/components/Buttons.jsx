@@ -11,6 +11,9 @@ const Buttons = ({handleClick}) => {
 			<button className="divide">/</button>
 			<button className="multiply">*</button>
 			<button className="subtract">-</button>
+			<button className="negative_sign">±
+				{/*<div className="negative_sign__diagonal"></div>*/}
+			</button>
 			<button className="add">+</button>
 			<button className="decimal">.</button>
 			<button className="equals">=</button>

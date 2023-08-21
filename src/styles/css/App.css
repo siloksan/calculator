@@ -61,7 +61,7 @@ button:hover {
     grid-auto-flow: row;
     grid-template-areas:
     "clear divide multiply subtract"
-    "seven eight nine add"
+    "seven eight nine negative_sign"
     "four five six add"
     "one two three equals"
     "zero zero decimal equals";
@@ -89,6 +89,24 @@ button:hover {
 .subtract {
     background-color: rgba(71, 75, 77, 0.7);
     grid-area: subtract;
+}
+
+.negative_sign {
+    background-color: rgba(71, 75, 77, 0.7);
+    grid-area: negative_sign;
+    position: relative;
+    z-index: 2;
+}
+
+.negative_sign__diagonal {
+    position: absolute;
+    opacity: .2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #540000 50%, #9f9fff 50%);
+    z-index: 3;
 }
 
 .add {

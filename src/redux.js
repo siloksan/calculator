@@ -5,12 +5,15 @@ const OPERATION = 'OPERATION'
 const CURRENT_NUMBER = 'CURRENT_NUMBER'
 const PREV_OPERATOR = 'PREV_OPERATOR'
 const RESET = 'RESET'
+// const NEGATIVE_SIGN = 'NEGATIVE_SIGN'
 
 const initialState = {
 	displayInput: '',
 	prevSymbol: '',
 	displayOutput: 0,
 	currentNumber: 0,
+	negativeSign: '',
+	operator: '',
 	prevOperator: '',
 	result: 0,
 }
@@ -36,7 +39,7 @@ export const calculate = (value) => {
 	}
 }
 
-export const operator = (symbol) => {
+export const updateOperator = (symbol) => {
 	return {
 		type: PREV_OPERATOR,
 		symbol
@@ -55,7 +58,7 @@ const calculateReducer = (state = initialState, action) => {
 			return {
 				...state,
 				displayInput: action.character,
-				prevSymbol: action.character.slice(-1)
+				// prevSymbol: action.character.slice(-1)
 			};
 		case CURRENT_NUMBER:
 			return {
@@ -63,6 +66,7 @@ const calculateReducer = (state = initialState, action) => {
 				currentNumber: action.number,
 				displayOutput: action.number
 			};
+
 		case OPERATION:
 			return {
 				...state,
