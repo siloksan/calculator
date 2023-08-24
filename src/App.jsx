@@ -4,6 +4,8 @@ import {connect, Provider} from "react-redux";
 import store, {calculate, changeInput, newNumber, updateOperator, reset} from "./redux";
 import Buttons from "./components/Buttons";
 
+const accuracy = 100000
+
 const mathematicalOperators = {
 	'+': (a, b) => a + b,
 	'-': (a, b) => a - b,
@@ -33,16 +35,15 @@ const App = ({
 	console.log(' result: ' + result + '(type: ' + typeof result + ')');
 
 	const handleClick = (ev) => {
-		// debugger
 		const value = ev.target.innerHTML
 		if (prevOperator === '=') {
 			resetState()
 		}
 		if (value === '=' && prevOperator !== '') {
 			const currentNumberConvertToNum = Number(currentNumber)
+			const newResult = Math.round(accuracy * mathematicalOperators[prevOperator](result, currentNumberConvertToNum)) / accuracy;
 			writeDownTheOperator(value)
-			calculateTheValue(mathematicalOperators[prevOperator](result, currentNumberConvertToNum)
-				.toFixed(5))
+			calculateTheValue(newResult)
 			renderNewCharacterIntoInput('')
 		}
 		let newCurrentNumber;
@@ -56,14 +57,11 @@ const App = ({
 		}
 		//обрабатываем нажатие на кнопку математического оператора
 		else if (value.match(/[+/*-]/)) {
-			debugger
 			const currentNumberConvertToNum = Number(currentNumber)
 			const displayOutputToString = Number(displayOutput)
 			//должно идти в начале, если предыдущий символ тоже мат. оператор удаляем его и заменяем на вновь введённый
 		 if (prevOperator !== '' && currentNumberConvertToNum === displayOutputToString ) {
-			 debugger
-				const newResult = mathematicalOperators[prevOperator](result, currentNumberConvertToNum)
-					.toFixed(5)
+				const newResult = Math.round(accuracy * mathematicalOperators[prevOperator](result, currentNumberConvertToNum)) / accuracy;
 				calculateTheValue(newResult)
 				writeDownTheOperator(value)
 				renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
