@@ -147,5 +147,19 @@ button:hover {
     .buttons {
         height: 280px;
     }
+
+    .display {
+        min-height: 60px;
+    }
+
+    .display__output-data {
+        font-size: 30px;
+        min-height: 40px;
+    }
+
+    .display__input-data {
+        font-size: 20px;
+    }
+
 }
 

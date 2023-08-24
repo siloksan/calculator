@@ -10,7 +10,6 @@ const mathematicalOperators = {
 	'*': (a, b) => a * b,
 	'/': (a, b) => a / b,
 	'±': (a) => -1 * a,
-	// '': (a) => a
 }
 
 const App = ({
@@ -34,34 +33,52 @@ const App = ({
 	console.log(' result: ' + result + '(type: ' + typeof result + ')');
 
 	const handleClick = (ev) => {
+		// debugger
 		const value = ev.target.innerHTML
+		if (prevOperator === '=') {
+			resetState()
+		}
+		if (value === '=' && prevOperator !== '') {
+			const currentNumberConvertToNum = Number(currentNumber)
+			writeDownTheOperator(value)
+			calculateTheValue(mathematicalOperators[prevOperator](result, currentNumberConvertToNum)
+				.toFixed(5))
+			renderNewCharacterIntoInput('')
+		}
 		let newCurrentNumber;
-		if (value.match(/±/)) {
-			// debugger
+		if (value === '±' && currentNumber !== 0) {
 			newCurrentNumber = mathematicalOperators[value](currentNumber)
 			updateCurrentNumber(newCurrentNumber)
+		} else if (value === '.' && currentNumber.toString().indexOf('.') < 0) {
+			updateCurrentNumber(currentNumber + value)
 		} else if (value.match(/\d/)) {
 			updateCurrentNumber(Number(currentNumber + value))
 		}
 		//обрабатываем нажатие на кнопку математического оператора
 		else if (value.match(/[+/*-]/)) {
+			debugger
+			const currentNumberConvertToNum = Number(currentNumber)
+			const displayOutputToString = Number(displayOutput)
 			//должно идти в начале, если предыдущий символ тоже мат. оператор удаляем его и заменяем на вновь введённый
+		 if (prevOperator !== '' && currentNumberConvertToNum === displayOutputToString ) {
+			 debugger
+				const newResult = mathematicalOperators[prevOperator](result, currentNumberConvertToNum)
+					.toFixed(5)
+				calculateTheValue(newResult)
+				writeDownTheOperator(value)
+				renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
+			 return;
+			}
 			if (displayInput.slice(-1).match(/[+/*-]/)) {
-				// debugger
 				const newDisplayInput = displayInput.slice(0, -1) + value
 				renderNewCharacterIntoInput(newDisplayInput)
 				writeDownTheOperator(value)
-				//производим расчёт
-			} else if (prevOperator !== '') {
-				const newResult = mathematicalOperators[prevOperator](result, currentNumber)
-				calculateTheValue(newResult)
+				return
+			}
 				writeDownTheOperator(value)
-				renderNewCharacterIntoInput(displayInput + currentNumber + value)
-			}
-			else {
-					writeDownTheOperator(value)
-				renderNewCharacterIntoInput(displayInput + currentNumber + value)
-			}
+				renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
+				calculateTheValue(currentNumberConvertToNum)
+
 		}
 			else if (value === 'AC') {
 			resetState()
