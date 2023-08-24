@@ -1,22 +1,11 @@
 import {createStore} from 'redux'
+import {initialState} from "./utils/const";
 
 const DISPLAY_INPUT = 'DISPLAY_INPUT'
 const OPERATION = 'OPERATION'
 const CURRENT_NUMBER = 'CURRENT_NUMBER'
 const PREV_OPERATOR = 'PREV_OPERATOR'
 const RESET = 'RESET'
-// const NEGATIVE_SIGN = 'NEGATIVE_SIGN'
-
-const initialState = {
-	displayInput: '',
-	prevSymbol: '',
-	displayOutput: 0,
-	currentNumber: 0,
-	negativeSign: '',
-	operator: '',
-	prevOperator: '',
-	result: 0,
-}
 
 export const changeInput = (character) => {
 	return {
@@ -58,7 +47,6 @@ const calculateReducer = (state = initialState, action) => {
 			return {
 				...state,
 				displayInput: action.character,
-				// prevSymbol: action.character.slice(-1)
 			};
 		case CURRENT_NUMBER:
 			return {
