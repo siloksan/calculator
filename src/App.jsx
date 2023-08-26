@@ -39,7 +39,6 @@ const App = ({
 			//If the clicked is '.', check the current number already contains a decimal point
 			//and update the current number accordingly
 			case '.':
-				''
 				if (!/\./.test(currentNumber)) {
 					currentNumber === '-' ?
 						updateCurrentNumber('-0' + value):
