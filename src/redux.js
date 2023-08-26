@@ -6,6 +6,7 @@ const OPERATION = 'OPERATION'
 const CURRENT_NUMBER = 'CURRENT_NUMBER'
 const PREV_OPERATOR = 'PREV_OPERATOR'
 const RESET = 'RESET'
+const OPPOSITE = 'OPPOSITE'
 
 export const changeInput = (character) => {
 	return {
@@ -41,26 +42,42 @@ export const reset = () => {
 	}
 }
 
+export const oppositeValue = (number) => {
+	return {
+		type: OPPOSITE,
+		number
+	}
+}
+
 const calculateReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case DISPLAY_INPUT:
+			// debugger
 			return {
 				...state,
 				displayInput: action.character,
 			};
 		case CURRENT_NUMBER:
+			// debugger
 			return {
 				...state,
 				currentNumber: action.number,
 				displayOutput: action.number
 			};
-
+		case OPPOSITE:
+			// debugger
+			return {
+				...state,
+				currentNumber: action.number,
+				displayOutput: action.number
+			}
 		case OPERATION:
+			// debugger
 			return {
 				...state,
 				result: action.value,
 				displayOutput: action.value,
-				currentNumber: 0
+				currentNumber: '0'
 			};
 		case PREV_OPERATOR:
 			return {
