@@ -39,11 +39,11 @@ const App = ({
 			//If the clicked is '.', check the current number already contains a decimal point
 			//and update the current number accordingly
 			case '.':
-				debugger
-				(!/\./.test(currentNumber)) &&
+				if (!/\./.test(currentNumber)) {
 					currentNumber === '-' ?
-					updateCurrentNumber('-0' + value):
-					 updateCurrentNumber(currentNumber + value)
+						updateCurrentNumber('-0' + value):
+						updateCurrentNumber(currentNumber + value)
+				}
 				break
 			//If the clicked is a digit? update the current number by appending the digit to it
 			case /\d/.test(value) && value:
