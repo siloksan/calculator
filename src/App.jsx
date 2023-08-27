@@ -21,71 +21,97 @@ const App = ({
 
 	const handleClick = (ev) => {
 		const value = ev.target.innerHTML
-		const currentNumberConvertToNum = Number(currentNumber)
-		const displayOutputToNum = Number(displayOutput)
 		switch (value) {
-			//If the clicked is 'AC', reset the state
 			case 'AC':
 				resetState()
 				break;
-			//If the clicked is '±' and the current number is not 0,
-			// update current number to its opposite value
-			case '±':
-				currentNumber === '0' || currentNumber === '' ?
-					changeCurrentNumToOpposite('-') :
-					currentNumber === '-' ?
-						changeCurrentNumToOpposite('') : changeCurrentNumToOpposite(currentNumberConvertToNum * -1)
-				break
-			//If the clicked is '.', check the current number already contains a decimal point
-			//and update the current number accordingly
-			case '.':
-				if (!/\./.test(currentNumber)) {
-					currentNumber === '-' ?
-						updateCurrentNumber('-0' + value):
-						updateCurrentNumber(currentNumber + value)
-				}
-				break
-			//If the clicked is a digit? update the current number by appending the digit to it
 			case /\d/.test(value) && value:
-				// debugger
 				currentNumber === '0' ?
 					updateCurrentNumber(value) :
 					updateCurrentNumber(currentNumber + value)
 				break
-			// If the clicked value is a unary operator or '=', perform the necessary calculations
-			// and update the display input and output accordingly
-			case /[+/*=-]/.test(value) && value:
-				// debugger
-				// If the previous operator was '=', append the result and the new operator to the display input
-				if (prevOperator === '=') {
-					renderNewCharacterIntoInput(result + value)
+			case '.':
+				if (!/\./.test(currentNumber)) {
+					currentNumber === '-' ?
+						updateCurrentNumber('-0' + value) :
+						updateCurrentNumber(currentNumber + value)
 				}
-					// If the previous operator was a mathematical operator
-					// and the current number and display output are equal,
-				// perform the calculation and update the display input and output
-				else if (/[+/*-]/.test(prevOperator) && currentNumberConvertToNum === displayOutputToNum) {
-					const newResult = mathematicalOperators[prevOperator](result, currentNumberConvertToNum);
-					calculateTheValue(newResult)
-					renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
-				}
-					// If the last character in the display input is a mathematical operator,
-				// update it with the new operator
-				else if (/[+/*-]/.test(displayInput.slice(-1))) {
-					const newDisplayInput = displayInput.slice(0, -1) + value
-					renderNewCharacterIntoInput(newDisplayInput)
-				}
-					// Otherwise, append the current number
-				// and operator to the display input and perform the calculation
-				else {
-					renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
-					calculateTheValue(currentNumberConvertToNum)
-				}
-				writeDownTheOperator(value)
 				break
-			default:
-				alert('Что-то пошло не так, сообщите разработчику!')
+			case '-':
+				if (displayInput === '' && (currentNumber === '' || /-0/.test(currentNumber))) {
+
+				}
 		}
 	}
+
+
+	// const handleClick = (ev) => {
+	// 	const value = ev.target.innerHTML
+	// 	const currentNumberConvertToNum = Number(currentNumber)
+	// 	const displayOutputToNum = Number(displayOutput)
+	// 	switch (value) {
+	// 		//If the clicked is 'AC', reset the state
+	// 		case 'AC':
+	// 			resetState()
+	// 			break;
+	// 		//If the clicked is '±' and the current number is not 0,
+	// 		// update current number to its opposite value
+	// 		case '±':
+	// 			currentNumber === '0' || currentNumber === '' ?
+	// 				changeCurrentNumToOpposite('-') :
+	// 				currentNumber === '-' ?
+	// 					changeCurrentNumToOpposite('') : changeCurrentNumToOpposite(currentNumberConvertToNum * -1)
+	// 			break
+	// 		//If the clicked is '.', check the current number already contains a decimal point
+	// 		//and update the current number accordingly
+	// 		case '.':
+	// 			if (!/\./.test(currentNumber)) {
+	// 				currentNumber === '-' ?
+	// 					updateCurrentNumber('-0' + value):
+	// 					updateCurrentNumber(currentNumber + value)
+	// 			}
+	// 			break
+	// 		//If the clicked is a digit? update the current number by appending the digit to it
+	// 		case /\d/.test(value) && value:
+	// 			// debugger
+	// 			currentNumber === '0' ?
+	// 				updateCurrentNumber(value) :
+	// 				updateCurrentNumber(currentNumber + value)
+	// 			break
+	// 		// If the clicked value is a unary operator or '=', perform the necessary calculations
+	// 		// and update the display input and output accordingly
+	// 		case /[+/*=-]/.test(value) && value:
+	// 			// debugger
+	// 			// If the previous operator was '=', append the result and the new operator to the display input
+	// 			if (prevOperator === '=') {
+	// 				renderNewCharacterIntoInput(result + value)
+	// 			}
+	// 				// If the previous operator was a mathematical operator
+	// 				// and the current number and display output are equal,
+	// 			// perform the calculation and update the display input and output
+	// 			else if (/[+/*-]/.test(prevOperator) && currentNumberConvertToNum === displayOutputToNum) {
+	// 				const newResult = mathematicalOperators[prevOperator](result, currentNumberConvertToNum);
+	// 				calculateTheValue(newResult)
+	// 				renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
+	// 			}
+	// 				// If the last character in the display input is a mathematical operator,
+	// 			// update it with the new operator
+	// 			else if (/[+/*-]/.test(displayInput.slice(-1))) {
+	// 				const newDisplayInput = displayInput.slice(0, -1) + value
+	// 				renderNewCharacterIntoInput(newDisplayInput)
+	// 			}
+	// 				// Otherwise, append the current number
+	// 			// and operator to the display input and perform the calculation
+	// 			else {
+	// 				renderNewCharacterIntoInput(displayInput + currentNumberConvertToNum + value)
+	// 				calculateTheValue(currentNumberConvertToNum)
+	// 			}
+	// 			writeDownTheOperator(value)
+	// 			break
+	// 		default:
+	// 			alert('Что-то пошло не так, сообщите разработчику!')
+	// 	}
+	// }
 
 	return (
 		<div className="main">
