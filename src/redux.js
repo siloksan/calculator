@@ -52,13 +52,11 @@ export const oppositeValue = (number) => {
 const calculateReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case DISPLAY_INPUT:
-			// debugger
 			return {
 				...state,
 				displayInput: action.character,
 			};
 		case CURRENT_NUMBER:
-			// debugger
 			return {
 				...state,
 				currentNumber: action.number,
@@ -72,7 +70,6 @@ const calculateReducer = (state = initialState, action) => {
 				displayOutput: action.number
 			}
 		case OPERATION:
-			// debugger
 			return {
 				...state,
 				result: action.value,
