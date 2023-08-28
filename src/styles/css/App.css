@@ -12,7 +12,7 @@ button:hover {
 
 .main {
     background-color: rgba(156, 156, 161, 0.7);
-    /*height: 100vh;*/
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
